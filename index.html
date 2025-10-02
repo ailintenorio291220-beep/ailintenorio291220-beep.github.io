@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cifrado César</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #eef2f7;
+      padding: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    input, textarea, button {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 80%;
+    }
+    button {
+      background: #0077cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 40%;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      min-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 Cifrado César</h1>
+
+  <textarea id="texto" placeholder="Escribe tu mensaje..."></textarea><br>
+  <input type="number" id="clave" placeholder="Desplazamiento" value="3" min="1" max="25"><br>
+
+  <button onclick="cifrar()">Cifrar</button>
+  <button onclick="descifrar()">Descifrar</button>
+
+  <h2>Resultado:</h2>
+  <div id="resultado"></div>
+
+  <script>
+    function cifrar() {
+      let texto = document.getElementById("texto").value;
+      let clave = parseInt(document.getElementById("clave").value);
+      let res = "";
+      
+      for (let letra of texto) {
+        if (/[a-z]/.test(letra)) {
+          res += String.fromCharCode((letra.charCodeAt(0) - 97 + clave) % 26 + 97);
+        } else if (/[A-Z]/.test(letra)) {
+          res += String.fromCharCode((letra.charCodeAt(0) - 65 + clave) % 26 + 65);
+        } else {
+          res += letra; // espacios, números, signos
+        }
+      }
+      document.getElementById("resultado").innerText = res;
+    }
+
+    function descifrar() {
+      let texto = document.getElementById("texto").value;
+      let clave = parseInt(document.getElementById("clave").value);
+      let res = "";
+      
+      for (let letra of texto) {
+        if (/[a-z]/.test(letra)) {
+          res += String.fromCharCode((letra.charCodeAt(0) - 97 - clave + 26) % 26 + 97);
+        } else if (/[A-Z]/.test(letra)) {
+          res += String.fromCharCode((letra.charCodeAt(0) - 65 - clave + 26) % 26 + 65);
+        } else {
+          res += letra;
+        }
+      }
+      document.getElementById("resultado").innerText = res;
+    }
+  </script>
+</body>
+</html>
